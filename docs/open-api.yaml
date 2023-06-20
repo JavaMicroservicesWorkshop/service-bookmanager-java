@@ -17,7 +17,7 @@ paths:
       operationId: getAllBooks
       responses:
         '200':
-          description: Returned successufully
+          description: Returned successfully
           content:
             application/json:
               schema:
@@ -172,20 +172,16 @@ components:
         - title
         - price
         - author
-        - cover
       properties:
         title:
           type: string
-          example: Three Comrads
+          example: Three Comrades
         author:
           type: string
           example: Erich Maria Remarque
         price:
           type: string
           example: 100
-        cover:
-          type: string
-          enum: [HARDCOVER, PAPERBACK]
     AddBookResponse:
       type: object
       properties:
@@ -210,16 +206,13 @@ components:
       properties:
         id:
           type: string
-          example: Three Comrads
+          example: Three Comrades
         title:
           type: string
-          example: Three Comrads
+          example: Three Comrades
         author:
           type: string
           example: Erich Maria Remarque
         price:
           type: string
           example: 100
-        cover:
-          type: string
-          enum: [HARDCOVER, PAPERBACK]

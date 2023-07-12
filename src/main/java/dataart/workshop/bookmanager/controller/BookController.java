@@ -3,7 +3,7 @@ package dataart.workshop.bookmanager.controller;
 import dataart.workshop.bookmanager.dto.AddBookRequest;
 import dataart.workshop.bookmanager.dto.AddBookResponse;
 import dataart.workshop.bookmanager.dto.BookDto;
-import dataart.workshop.bookmanager.dto.OrderDto;
+import dataart.workshop.bookmanager.dto.BookOrdersDto;
 import dataart.workshop.bookmanager.dto.PaginatedBookDto;
 import dataart.workshop.bookmanager.dto.UpdateBookRequest;
 import dataart.workshop.bookmanager.service.BookService;
@@ -39,7 +39,7 @@ public class BookController {
     }
 
     @GetMapping("/{bookId}/orders")
-    public OrderDto getAllOrdersForBook(@PathVariable Long bookId) {
+    public BookOrdersDto getAllOrdersForBook(@PathVariable Long bookId) {
         return bookService.getOrdersForBook(bookId);
     }
 

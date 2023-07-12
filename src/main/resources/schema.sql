@@ -1,8 +1,0 @@
-CREATE TABLE IF NOT EXISTS `books`
-(
-    `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-    `book_id` VARCHAR (255) NOT NULL,
-    `title` VARCHAR (255) NOT NULL,
-    `author` VARCHAR (255) NOT NULL,
-    `price` VARCHAR (255) NOT NULL
-    );

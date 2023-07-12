@@ -24,10 +24,9 @@ public class BookConverter {
         return bookDto;
     }
 
-    public Book toBook(AddBookRequest addBookRequest, String bookId) {
+    public Book toBook(AddBookRequest addBookRequest) {
         Book book = new Book();
 
-        book.setBookId(bookId);
         book.setAuthor(addBookRequest.getAuthor());
         book.setPrice(addBookRequest.getPrice());
         book.setTitle(addBookRequest.getTitle());

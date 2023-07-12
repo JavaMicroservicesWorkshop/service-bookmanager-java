@@ -3,6 +3,7 @@ package dataart.workshop.bookmanager.controller;
 import dataart.workshop.bookmanager.dto.AddBookRequest;
 import dataart.workshop.bookmanager.dto.AddBookResponse;
 import dataart.workshop.bookmanager.dto.BookDto;
+import dataart.workshop.bookmanager.dto.OrderDto;
 import dataart.workshop.bookmanager.dto.PaginatedBookDto;
 import dataart.workshop.bookmanager.dto.UpdateBookRequest;
 import dataart.workshop.bookmanager.service.BookService;
@@ -27,13 +28,19 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/{bookId}")
-    public BookDto getById(@PathVariable String bookId) {
+    public BookDto getById(@PathVariable Long bookId) {
         return bookService.findByBookId(bookId);
     }
 
     @GetMapping
-    public PaginatedBookDto getAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer size) {
+    public PaginatedBookDto getAll(@RequestParam(required = false) Integer page,
+                                   @RequestParam(required = false) Integer size) {
         return bookService.findAll(page, size);
+    }
+
+    @GetMapping("/{bookId}/orders")
+    public OrderDto getAllOrdersForBook(@PathVariable Long bookId) {
+        return bookService.getOrdersForBook(bookId);
     }
 
     @PostMapping
@@ -43,12 +50,12 @@ public class BookController {
     }
 
     @PutMapping("/{bookId}")
-    public BookDto update(@PathVariable String bookId, @RequestBody UpdateBookRequest updateBookRequest) {
+    public BookDto update(@PathVariable Long bookId, @RequestBody UpdateBookRequest updateBookRequest) {
         return bookService.update(bookId, updateBookRequest);
     }
 
     @DeleteMapping("/{bookId}")
-    public void delete(@PathVariable String bookId) {
+    public void delete(@PathVariable Long bookId) {
         bookService.delete(bookId);
     }
 }

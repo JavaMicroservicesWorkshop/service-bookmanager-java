@@ -5,6 +5,7 @@ import dataart.workshop.bookmanager.domain.Book;
 import dataart.workshop.bookmanager.dto.AddBookRequest;
 import dataart.workshop.bookmanager.dto.AddBookResponse;
 import dataart.workshop.bookmanager.dto.BookDto;
+import dataart.workshop.bookmanager.dto.OrderDto;
 import dataart.workshop.bookmanager.dto.PaginatedBookDto;
 import dataart.workshop.bookmanager.dto.UpdateBookRequest;
 import dataart.workshop.bookmanager.exception.BookNotFoundException;
@@ -17,8 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 public class BookService {
@@ -29,8 +28,9 @@ public class BookService {
     private final BookRepository bookRepository;
     private final PageUtils pageUtils;
     private final BookServiceValidator bookServiceValidator;
+    private final OrderService orderService;
 
-    public BookDto findByBookId(String bookId) {
+    public BookDto findByBookId(Long bookId) {
         Book book = bookRepository.findByBookId(bookId)
                 .orElseThrow(() -> new BookNotFoundException(CANT_FIND_BOOK.formatted(bookId)));
 
@@ -47,15 +47,14 @@ public class BookService {
     public AddBookResponse save(AddBookRequest addBookRequest) {
         bookServiceValidator.validateBookAbsence(addBookRequest.getTitle());
 
-        String bookId = UUID.randomUUID().toString();
-        Book book = bookConverter.toBook(addBookRequest, bookId);
-        bookRepository.save(book);
+        Book book = bookConverter.toBook(addBookRequest);
+        Book savedBook = bookRepository.save(book);
 
-        return new AddBookResponse(bookId);
+        return new AddBookResponse(savedBook.getBookId());
     }
 
     @Transactional
-    public BookDto update(String bookId, UpdateBookRequest updateBookRequest) {
+    public BookDto update(Long bookId, UpdateBookRequest updateBookRequest) {
         Book existingBook = bookRepository.findByBookId(bookId)
                 .orElseThrow(() -> new BookNotFoundException(""));
 
@@ -72,9 +71,13 @@ public class BookService {
     }
 
     @Transactional
-    public void delete(String bookId) {
+    public void delete(Long bookId) {
         bookServiceValidator.validateBookPresence(bookId);
 
         bookRepository.deleteByBookId(bookId);
+    }
+
+    public OrderDto getOrdersForBook(Long bookId) {
+        return orderService.getOrdersForBook(bookId);
     }
 }

@@ -1,5 +1,5 @@
 package dataart.workshop.bookmanager.dto;
 
-public record AddBookResponse(String id) {
+public record AddBookResponse(Long id) {
 
 }

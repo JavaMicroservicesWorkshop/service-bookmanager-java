@@ -18,10 +18,7 @@ public class Book {
 
     @Id
     @GeneratedValue
-    private Long id;
-
-    @Column
-    private String bookId;
+    private Long bookId;
 
     @Column
     private String title;

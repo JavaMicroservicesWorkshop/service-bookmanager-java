@@ -18,7 +18,7 @@ public class BookServiceValidator {
         }
     }
 
-    public void validateBookPresence(String bookId) {
+    public void validateBookPresence(Long bookId) {
         if (!bookRepository.existsByBookId(bookId)) {
             throw new BookNotFoundException("Can't find book by id: %s".formatted(bookId));
         }

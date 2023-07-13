@@ -5,6 +5,7 @@ import dataart.workshop.bookmanager.domain.Book;
 import dataart.workshop.bookmanager.dto.AddBookRequest;
 import dataart.workshop.bookmanager.dto.AddBookResponse;
 import dataart.workshop.bookmanager.dto.BookDto;
+import dataart.workshop.bookmanager.dto.BookOrdersDto;
 import dataart.workshop.bookmanager.dto.PaginatedBookDto;
 import dataart.workshop.bookmanager.dto.UpdateBookRequest;
 import dataart.workshop.bookmanager.exception.BookNotFoundException;
@@ -30,6 +31,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final PageUtils pageUtils;
     private final BookServiceValidator bookServiceValidator;
+    private final OrderService orderService;
 
     public BookDto findByBookId(Long bookId) {
         Book book = bookRepository.findByBookId(bookId)
@@ -80,5 +82,9 @@ public class BookService {
         bookRepository.deleteByBookId(bookId);
 
         logger.info("Book " + bookId + " is deleted");
+    }
+
+    public BookOrdersDto getOrdersForBook(Long bookId) {
+        return orderService.getOrdersForBook(bookId);
     }
 }
